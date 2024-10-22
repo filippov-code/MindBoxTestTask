@@ -1,34 +1,36 @@
+/*
 В базе данных MS SQL Server есть продукты и категории. 
 Одному продукту может соответствовать много категорий, в одной категории может быть много продуктов. 
 Напишите SQL запрос для выбора всех пар «Имя продукта – Имя категории». 
 Если у продукта нет категорий, то его имя все равно должно выводиться.
+*/
 
 --Создадим БД
-CREATE DATABASE MindBoxShop;
-USE MindBoxShop;
+CREATE DATABASE mindbox_shop;
+USE mindbox_shop;
 
 --Создадим таблицы категорий и товаров
-CREATE TABLE Products
+CREATE TABLE products
 (
-    Id INT IDENTITY PRIMARY KEY,
-    Name NVARCHAR(30) NOT NULL
+    id INT IDENTITY PRIMARY KEY,
+    name NVARCHAR(30) NOT NULL
 )
 
-CREATE TABLE Categories
+CREATE TABLE categories
 (
-    Id INT IDENTITY PRIMARY KEY,
-    Name NVARCHAR(30) NOT NULL
+    id INT IDENTITY PRIMARY KEY,
+    name NVARCHAR(30) NOT NULL
 )
 
 --Заполним таблицы
-INSERT Categories VALUES 
+INSERT categories VALUES 
 ('Газированные напитки'),
 ('Напитки без сахара'),
 ('Сладкие напитки'),
 ('Полезные напитки'),
-('Алкогольные напитки')
+('Алкогольные напитки');
 
-INSERT Products VALUES 
+INSERT products VALUES 
 ('Coca-Cola'),
 ('Вино'),
 ('Йогурт'),
@@ -37,15 +39,17 @@ INSERT Products VALUES
 ('Чипсы');
 
 --Создадим промежуточную таблицу и настроим связи с уже созданными
-CREATE TABLE CategoryProduct
+CREATE TABLE category_product
 (
-	Id INT IDENTITY NOT NULL PRIMARY KEY,
-    CategoryId INT NOT NULL FOREIGN KEY REFERENCES Categories(Id),
-    ProductId INT NOT NULL FOREIGN KEY REFERENCES Products(Id)
+	id INT IDENTITY NOT NULL PRIMARY KEY,
+    category_id INT NOT NULL FOREIGN KEY REFERENCES categories(Id),
+    product_id INT NOT NULL FOREIGN KEY REFERENCES products(Id)
 );
 
 --Установим соответствие категорий и товаров
-INSERT CategoryProduct(CategoryId, ProductId) VALUES
+INSERT category_product
+(category_id, product_id) 
+VALUES
 (1, 1),
 (2, 4),
 (3, 1), (3, 3), (3, 5),
@@ -53,9 +57,11 @@ INSERT CategoryProduct(CategoryId, ProductId) VALUES
 (5, 2);
 
 --Выполним запрос
-SELECT p.Name AS 'Имя продукта', c.Name AS 'Имя категории'
-FROM Products p
-LEFT JOIN CategoryProduct cp ON cp.ProductId = p.Id
-LEFT JOIN Categories c ON cp.CategoryId = c.Id;
+SELECT 
+    p.name AS 'Имя продукта',
+    c.name AS 'Имя категории'
+FROM products p
+    LEFT JOIN category_product cp ON cp.product_id = p.id
+    LEFT JOIN categories c ON cp.category_id = c.id;
 
 

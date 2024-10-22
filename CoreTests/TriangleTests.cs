@@ -1,74 +1,73 @@
-﻿using Core;
+﻿using Core.Implementations;
 
-namespace CoreTests
+namespace CoreTests;
+
+[TestClass]
+public class TriangleTests
 {
-    [TestClass]
-    public class TriangleTests
+    [TestMethod]
+    public void Constructor_InvalidSides_ExceptionReturned()
     {
-        [TestMethod]
-        public void Constructor_InvalidSides_ExceptionReturned()
+        double a = 1;
+        double b = 2;
+        double c = 1;
+
+        Assert.ThrowsException<ArgumentException>(() => new Triangle(a, b, c));
+    }
+
+    [TestMethod]
+    public void Constructor_CorrectSides_ExceptionReturned()
+    {
+        double a = 6;
+        double b = 8;
+        double c = 10;
+
+        try
         {
-            double a = 1;
-            double b = 2;
-            double c = 1;
-
-            Assert.ThrowsException<ArgumentException>(() => new Triangle(a, b, c));
+            new Triangle(a, b, c);
         }
-
-        [TestMethod]
-        public void Constructor_CorrectSides_ExceptionReturned()
+        catch
         {
-            double a = 6;
-            double b = 8;
-            double c = 10;
-
-            try
-            {
-                new Triangle(a, b, c);
-            }
-            catch
-            {
-                Assert.Fail();
-            }
+            Assert.Fail();
         }
+    }
 
-        [TestMethod]
-        public void Area_6and8and10_24Returned()
-        {
-            double a = 6;
-            double b = 8;
-            double c = 10;
-            Triangle triangle = new Triangle(a, b, c);
+    [TestMethod]
+    public void Area_6and8and10_24Returned()
+    {
+        double a = 6;
+        double b = 8;
+        double c = 10;
+        var triangle = new Triangle(a, b, c);
 
-            double expected = 24;
+        double expected = 24;
 
-            Assert.AreEqual(expected, triangle.Area);
-        }
+        Assert.AreEqual(expected, triangle.Area);
+    }
 
-        [TestMethod]
-        public void IsRightAngled_6and8and10_TrueReturned()
-        {
-            double a = 6;
-            double b = 8;
-            double c = 10;
-            Triangle triangle = new Triangle(a, b, c);
+    [TestMethod]
+    public void IsRightAngled_6and8and10_TrueReturned()
+    {
+        double a = 6;
+        double b = 8;
+        double c = 10;
+        var triangle = new Triangle(a, b, c);
 
-            bool expected = true;
+        bool expected = true;
 
-            Assert.AreEqual(expected, triangle.IsRightAngled);
-        }
+        Assert.AreEqual(expected, triangle.IsRightAngled);
+    }
 
-        [TestMethod]
-        public void IsRightAngled_1and1and1_FalseReturned()
-        {
-            double a = 1;
-            double b = 1;
-            double c = 1;
-            Triangle triangle = new Triangle(a, b, c);
+    [TestMethod]
+    public void IsRightAngled_1and1and1_FalseReturned()
+    {
+        double a = 1;
+        double b = 1;
+        double c = 1;
+        var triangle = new Triangle(a, b, c);
 
-            bool expected = false;
+        bool expected = false;
 
-            Assert.AreEqual(expected, triangle.IsRightAngled);
-        }
+        Assert.AreEqual(expected, triangle.IsRightAngled);
     }
 }
