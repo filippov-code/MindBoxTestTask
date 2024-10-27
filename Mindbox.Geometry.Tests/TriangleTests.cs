@@ -1,21 +1,20 @@
-﻿using Core.Implementations;
+﻿using Mindbox.Geometry.Implementations;
 
-namespace CoreTests;
+namespace Mindbox.Geometry.Tests;
 
-[TestClass]
 public class TriangleTests
 {
-    [TestMethod]
+    [Fact]
     public void Constructor_InvalidSides_ExceptionReturned()
     {
         double a = 1;
         double b = 2;
         double c = 1;
 
-        Assert.ThrowsException<ArgumentException>(() => new Triangle(a, b, c));
+        Assert.Throws<ArgumentException>(() => new Triangle(a, b, c));
     }
 
-    [TestMethod]
+    [Fact]
     public void Constructor_CorrectSides_ExceptionReturned()
     {
         double a = 6;
@@ -32,7 +31,7 @@ public class TriangleTests
         }
     }
 
-    [TestMethod]
+    [Fact]
     public void Area_6and8and10_24Returned()
     {
         double a = 6;
@@ -42,10 +41,10 @@ public class TriangleTests
 
         double expected = 24;
 
-        Assert.AreEqual(expected, triangle.Area);
+        Assert.Equal(expected, triangle.Area);
     }
 
-    [TestMethod]
+    [Fact]
     public void IsRightAngled_6and8and10_TrueReturned()
     {
         double a = 6;
@@ -55,10 +54,10 @@ public class TriangleTests
 
         bool expected = true;
 
-        Assert.AreEqual(expected, triangle.IsRightAngled);
+        Assert.Equal(expected, triangle.IsRightAngled);
     }
 
-    [TestMethod]
+    [Fact]
     public void IsRightAngled_1and1and1_FalseReturned()
     {
         double a = 1;
@@ -68,6 +67,6 @@ public class TriangleTests
 
         bool expected = false;
 
-        Assert.AreEqual(expected, triangle.IsRightAngled);
+        Assert.Equal(expected, triangle.IsRightAngled);
     }
 }

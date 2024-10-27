@@ -7,44 +7,60 @@
 
 --Создадим БД
 CREATE DATABASE mindbox_shop;
+GO 
+
 USE mindbox_shop;
+GO
 
 --Создадим таблицы категорий и товаров
 CREATE TABLE products
 (
-    id INT IDENTITY PRIMARY KEY,
-    name NVARCHAR(30) NOT NULL
-)
+    id INT IDENTITY(1, 1),
+    name NVARCHAR(30) NOT NULL,
+	CONSTRAINT pk_products PRIMARY KEY (id)
+);
+GO
 
 CREATE TABLE categories
 (
-    id INT IDENTITY PRIMARY KEY,
-    name NVARCHAR(30) NOT NULL
+    id INT IDENTITY(1, 1),
+    name NVARCHAR(30) NOT NULL,
+	CONSTRAINT pk_categories PRIMARY KEY (id)
 )
+GO
 
 --Заполним таблицы
-INSERT categories VALUES 
+INSERT categories 
+(name)
+VALUES 
 ('Газированные напитки'),
 ('Напитки без сахара'),
 ('Сладкие напитки'),
 ('Полезные напитки'),
 ('Алкогольные напитки');
+GO
 
-INSERT products VALUES 
+INSERT products 
+(name)
+VALUES 
 ('Coca-Cola'),
 ('Вино'),
 ('Йогурт'),
 ('Вода'),
 ('Сок'),
 ('Чипсы');
+GO
 
 --Создадим промежуточную таблицу и настроим связи с уже созданными
 CREATE TABLE category_product
 (
-	id INT IDENTITY NOT NULL PRIMARY KEY,
-    category_id INT NOT NULL FOREIGN KEY REFERENCES categories(Id),
-    product_id INT NOT NULL FOREIGN KEY REFERENCES products(Id)
+    category_id INT NOT NULL ,
+    product_id INT NOT NULL,
+    CONSTRAINT pk_category_product PRIMARY KEY (category_id, product_id),
+	CONSTRAINT fk_category_product__category_id FOREIGN KEY (category_id) REFERENCES categories(Id),
+	CONSTRAINT fk_category_product__product_id FOREIGN KEY (product_id) REFERENCES products(Id),
 );
+GO
 
 --Установим соответствие категорий и товаров
 INSERT category_product
@@ -55,6 +71,7 @@ VALUES
 (3, 1), (3, 3), (3, 5),
 (4, 3), (4, 4), (4, 5),
 (5, 2);
+GO
 
 --Выполним запрос
 SELECT 
@@ -63,5 +80,4 @@ SELECT
 FROM products p
     LEFT JOIN category_product cp ON cp.product_id = p.id
     LEFT JOIN categories c ON cp.category_id = c.id;
-
-
+GO
