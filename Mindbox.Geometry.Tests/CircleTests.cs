@@ -1,26 +1,26 @@
-using Core.Implementations;
+﻿using Mindbox.Geometry.Implementations;
 
-namespace CoreTests;
+namespace Mindbox.Geometry.Tests;
 
-[TestClass]
 public class CircleTests
 {
-    [TestMethod]
+
+    [Fact]
     public void Constructor_NegativeRadius_ExceptionReturned()
     {
         double r = -1;
-        Assert.ThrowsException<ArgumentException>(() => new Circle(r));
+        Assert.Throws<ArgumentException>(() => new Circle(r));
     }
 
-    [TestMethod]
+    [Fact]
     public void Constructor_ZeroRadius_ExceptionReturned()
     {
         double r = 0;
 
-        Assert.ThrowsException<ArgumentException>(() => new Circle(r));
+        Assert.Throws<ArgumentException>(() => new Circle(r));
     }
 
-    [TestMethod]
+    [Fact]
     public void Constructor_PositiveRadius_CircleReturned()
     {
         double r = 1;
@@ -33,19 +33,19 @@ public class CircleTests
         {
             Assert.Fail();
         }
-        
+
     }
 
-    [TestMethod]
+    [Fact]
     public void Radius_3_3Returned()
     {
         double expectedR = 3;
         var circle = new Circle(expectedR);
 
-        Assert.AreEqual(expectedR, circle.Radius);
+        Assert.Equal(expectedR, circle.Radius);
     }
 
-    [TestMethod]
+    [Fact]
     public void Area_Radius4_Pi16Returned()
     {
         double r = 4;
@@ -53,6 +53,6 @@ public class CircleTests
 
         double expectedArea = Math.PI * Math.Pow(r, 2);
 
-        Assert.AreEqual(expectedArea, circle.Area);
+        Assert.Equal(expectedArea, circle.Area);
     }
 }

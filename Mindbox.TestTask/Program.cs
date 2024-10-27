@@ -1,8 +1,8 @@
-﻿using Core;
-
+﻿using Mindbox.Geometry;
+using Mindbox.Geometry.Implementations;
 
 Console.WriteLine("===Triangle===");
-Triangle triangle = new Triangle(5, 6, 7);
+var triangle = new Triangle(5, 6, 7);
 Console.WriteLine($"Sides: {triangle.A}, {triangle.B}, {triangle.C}");
 Console.WriteLine($"Area: {triangle.Area}");
 Console.WriteLine($"IsRight: {triangle.IsRightAngled}");
@@ -12,7 +12,7 @@ Console.WriteLine($"Area: {triangle.Area}");
 Console.WriteLine($"IsRight: {triangle.IsRightAngled}");
 
 Console.WriteLine("===Circle===");
-Circle circle = new Circle(1);
+var circle = new Circle(1);
 Console.WriteLine($"Radius: {circle.Radius}");
 Console.WriteLine($"Area: {circle.Area}");
 circle = new Circle(4);

@@ -1,10 +1,8 @@
-﻿namespace Core.Implementations;
+﻿namespace Mindbox.Geometry.Implementations;
 
 public class Triangle : IFigure
 {
-    private readonly double _area;
-
-    public double Area => _area;
+    public double Area { get; init; }
     public double A { get; init; }
     public double B { get; init; }
     public double C { get; init; }
@@ -25,7 +23,7 @@ public class Triangle : IFigure
 
         //  Для проверки на прямоугольность используется теорема Пифагора:
         //  В прямоугольном треугольнике квадрат гипотенузы равен сумме квадратов катетов треугольника
-        if ((a * a + b * b == c * c) || (a * a + c * c == b * b) || (c * c + b * b == a * a))
+        if (a * a + b * b == c * c || a * a + c * c == b * b || c * c + b * b == a * a)
         {
             IsRightAngled = true;
         }
@@ -33,6 +31,6 @@ public class Triangle : IFigure
         //  Для вычисления площади используется формула Герона:
         //  S = √(p·(p - a)·(p - b)·(p - c)), p = (a+b+c)/2
         double p = (A + B + C) / 2;
-        _area = Math.Sqrt(p * (p - A) * (p - B) * (p - C));
+        Area = Math.Sqrt(p * (p - A) * (p - B) * (p - C));
     }
 }

@@ -1,10 +1,8 @@
-﻿namespace Core.Implementations;
+﻿namespace Mindbox.Geometry.Implementations;
 
 public class Circle : IFigure
 {
-    private readonly double _area;
-
-    public double Area => _area;
+    public double Area { get; init; }
     public double Radius { get; init; }
 
     public Circle(double radius)
@@ -15,6 +13,6 @@ public class Circle : IFigure
         }
 
         Radius = radius;
-        _area = Math.PI * Math.Pow(Radius, 2);
+        Area = Math.PI * Math.Pow(Radius, 2);
     }
 }
